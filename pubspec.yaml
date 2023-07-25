@@ -40,9 +40,9 @@ dependencies:
   dio: ^5.0.2
   shared_preferences: ^2.0.18
   webview_flutter: ^1.0.0
-  hexcolor: ^3.0.1
   animation_search_bar: ^0.0.10
   iconsax: ^0.0.8
+  hexcolor: ^3.0.1
 
 
 

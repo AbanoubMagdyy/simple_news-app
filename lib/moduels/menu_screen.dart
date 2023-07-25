@@ -8,7 +8,6 @@ import '../components/components.dart';
 import 'bussiness_screen.dart';
 import 'entertainment_screen.dart';
 import 'health_screen.dart';
-
 class MenuScreen extends StatelessWidget {
   const MenuScreen({Key? key}) : super(key: key);
 
@@ -22,12 +21,12 @@ class MenuScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Add Your Favorite News',
-                  style: Theme.of(context).textTheme.headline6),
+                  style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(
                 height: 5,
               ),
               const Text(
-                'Choose your favorite news in your home screen',
+                'Choose your favorite news',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 15,
@@ -40,82 +39,20 @@ class MenuScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     ///BUSINESS
-                    Expanded(
-                        child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: InkWell(
-                        onTap: () =>
-                            navigateTo(context, const BusinessScreen()),
-                        child: Container(
-                          height: double.infinity,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: HexColor('##98F51F'),
-                                  spreadRadius: 1,
-                                )
-                              ]),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.business_center_sharp,
-                                color: HexColor('##98F51F'),
-                                size: 40,
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              const Text(
-                                'Business',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    )),
+                    item(
+                      context: context,
+                      nextScreen: const BusinessScreen(),
+                      icon: Icons.business_center_sharp,
+                      text: 'Business',
+                    ),
 
                     ///ENTERTAINMENT
-                    Expanded(
-                        child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: InkWell(
-                        onTap: () =>
-                            navigateTo(context, const EntertainmentScreen()),
-                        child: Container(
-                          height: double.infinity,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: HexColor('##98F51F'),
-                                  spreadRadius: 1,
-                                )
-                              ]),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.local_fire_department_outlined,
-                                color: HexColor('##98F51F'),
-                                size: 40,
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              const Text(
-                                'Entertainment',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    )),
+                    item(
+                      context: context,
+                      nextScreen: const EntertainmentScreen(),
+                      icon: Icons.local_fire_department_outlined,
+                      text: 'Entertainment',
+                    ),
                   ],
                 ),
               ),
@@ -123,80 +60,20 @@ class MenuScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     ///HEALTH
-                    Expanded(
-                        child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: InkWell(
-                        onTap: () => navigateTo(context, const HealthScreen()),
-                        child: Container(
-                          height: double.infinity,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: HexColor('##98F51F'),
-                                  spreadRadius: 1,
-                                )
-                              ]),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.health_and_safety_outlined,
-                                color: HexColor('##98F51F'),
-                                size: 40,
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              const Text(
-                                'Health',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    )),
+                    item(
+                      context: context,
+                      nextScreen: const HealthScreen(),
+                      icon: Icons.health_and_safety_outlined,
+                      text: 'Health',
+                    ),
 
-                    ///SCENES
-                    Expanded(
-                        child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: InkWell(
-                        onTap: () => navigateTo(context, const ScienceScreen()),
-                        child: Container(
-                          height: double.infinity,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: HexColor('##98F51F'),
-                                  spreadRadius: 1,
-                                )
-                              ]),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.science_outlined,
-                                color: HexColor('##98F51F'),
-                                size: 40,
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              const Text(
-                                'Science',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    )),
+                    ///SCIENCE
+                    item(
+                      context: context,
+                      nextScreen: const ScienceScreen(),
+                      icon: Icons.science_outlined,
+                      text: 'Science',
+                    ),
                   ],
                 ),
               ),
@@ -204,95 +81,69 @@ class MenuScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     ///SPORT
-                    Expanded(
-                        child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: InkWell(
-                        onTap: () => navigateTo(context, const SportsScreen()),
-                        child: Container(
-                          height: double.infinity,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: HexColor('##98F51F'),
-                                  spreadRadius: 1,
-                                )
-                              ]),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.sports_basketball,
-                                color: HexColor('##98F51F'),
-                                size: 40,
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              const Text(
-                                'Sports',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    )),
+                    item(
+                      context: context,
+                      nextScreen: const SportsScreen(),
+                      icon: Icons.sports_baseball_outlined,
+                      text: 'Sports',
+                    ),
 
                     ///TECH
-                    Expanded(
-                        child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: InkWell(
-                        onTap: () => navigateTo(context, const TechScreen()),
-                        child: Container(
-                          height: double.infinity,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: HexColor('##98F51F'),
-                                  spreadRadius: 1,
-                                )
-                              ]),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.computer_outlined,
-                                color: HexColor('##98F51F'),
-                                size: 40,
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              const Text(
-                                'Technology',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    )),
+                    item(
+                      context: context,
+                      nextScreen: const TechScreen(),
+                      icon: Icons.laptop,
+                      text: 'Tech',
+                    ),
                   ],
                 ),
               ),
-              // SizedBox(
-              //     width: double.infinity,
-              //     height: 25,
-              //     child: MaterialButton(
-              //         onPressed: () {},
-              //         child: Text('Continue',
-              //             style: Theme.of(context)
-              //                 .textTheme
-              //                 .headline6
-              //                 ?.copyWith(color: defaultColor))))
             ],
           ),
         ));
   }
+
+  Widget item({
+    required context,
+    required nextScreen,
+    required IconData icon,
+    required String text,
+  }) =>
+      Expanded(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: InkWell(
+            onTap: () => navigateTo(context, nextScreen),
+            child: Container(
+              height: double.infinity,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: HexColor('##98F51F'),
+                      spreadRadius: 1,
+                    )
+                  ]),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    icon,
+                    color: HexColor('##98F51F'),
+                    size: 40,
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    text,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
 }

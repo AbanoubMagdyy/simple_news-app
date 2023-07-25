@@ -67,7 +67,7 @@ Widget itemArticle(Map articles, context) => InkWell(
                   ],
                 ),
               ),
-              /// time abd date
+              /// time and date
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 5),
                 child: Text(
