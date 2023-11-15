@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_news_app/shared/news_bloc/states.dart';
-
 import '../../network/local/shared_preferences.dart';
 import '../../network/remote/dio_helper.dart';
 
@@ -13,6 +12,7 @@ class NewsCubit extends Cubit<NewsState> {
 
   static bool isDark = false;
   IconData iconTheme = Icons.brightness_4_outlined;
+  bool isThereAnError = false;
 
   void changeThemeMode({bool? shared}) {
     if (shared == null) {
@@ -31,25 +31,27 @@ class NewsCubit extends Cubit<NewsState> {
 
   List<dynamic> allNews = [];
 
-  void getAllData() {
+  Future<void> getAllData() async {
     emit(GetAllDataLeading());
     DioHelper.getData(query: {
       'country': 'eg',
-      'apiKey': '0129b5e06179457ca8ed136cf34a1506'
+      'apiKey': '3c7b9e365afd4cd398cdcd2461187440'
     }).then((value) {
       allNews = value?.data['articles'];
+      isThereAnError = false;
       emit(GetAllDataSuccess());
     }).catchError((error) {
       if (kDebugMode) {
         print(error.toString());
       }
+      isThereAnError = true;
       emit(GetAllDataError(error.toString()));
-    });
+    },);
   }
 
   List<dynamic> business = [];
 
-  void getBusinessData() {
+  Future<void> getBusinessData() async {
     emit(GetBusinessLeading());
     DioHelper.getData(query: {
       'country': 'eg',
@@ -57,18 +59,20 @@ class NewsCubit extends Cubit<NewsState> {
       'apiKey': '3c7b9e365afd4cd398cdcd2461187440'
     }).then((value) {
       business = value?.data['articles'];
+      isThereAnError = false;
       emit(GetBusinessSuccess());
     }).catchError((error) {
       if (kDebugMode) {
         print(error.toString());
       }
+      isThereAnError = true;
       emit(GetBusinessError());
     });
   }
 
   List<dynamic> entertainment = [];
 
-  void getEntertainmentData() {
+  Future<void> getEntertainmentData() async {
     emit(GetEntertainmentLeading());
     DioHelper.getData(query: {
       'country': 'eg',
@@ -76,18 +80,20 @@ class NewsCubit extends Cubit<NewsState> {
       'apiKey': '3c7b9e365afd4cd398cdcd2461187440'
     }).then((value) {
       entertainment = value?.data['articles'];
+      isThereAnError = false;
       emit(GetEntertainmentSuccess());
     }).catchError((error) {
       if (kDebugMode) {
         print(error.toString());
       }
+      isThereAnError = true;
       emit(GetEntertainmentError());
     });
   }
 
   List<dynamic> health = [];
 
-  void getHealthData() {
+  Future<void> getHealthData() async {
     emit(GetHealthLeading());
     DioHelper.getData(query: {
       'country': 'eg',
@@ -95,18 +101,20 @@ class NewsCubit extends Cubit<NewsState> {
       'apiKey': '3c7b9e365afd4cd398cdcd2461187440'
     }).then((value) {
       health = value?.data['articles'];
+      isThereAnError = false;
       emit(GetHealthSuccess());
     }).catchError((error) {
       if (kDebugMode) {
         print(error.toString());
       }
+      isThereAnError = true;
       emit(GetHealthError());
     });
   }
 
   List<dynamic> science = [];
 
-  void getScienceData() {
+  Future<void> getScienceData() async {
     emit(GetScienceLeading());
     DioHelper.getData(query: {
       'country': 'eg',
@@ -114,18 +122,20 @@ class NewsCubit extends Cubit<NewsState> {
       'apiKey': '3c7b9e365afd4cd398cdcd2461187440'
     }).then((value) {
       science = value?.data['articles'];
+      isThereAnError = false;
       emit(GetScienceSuccess());
     }).catchError((error) {
       if (kDebugMode) {
         print(error.toString());
       }
+      isThereAnError = true;
       emit(GetScienceError());
     });
   }
 
   List<dynamic> sports = [];
 
-  void getSportsData() {
+  Future<void> getSportsData() async {
     emit(GetSportsLeading());
     DioHelper.getData(query: {
       'country': 'eg',
@@ -133,18 +143,20 @@ class NewsCubit extends Cubit<NewsState> {
       'apiKey': '3c7b9e365afd4cd398cdcd2461187440'
     }).then((value) {
       sports = value?.data['articles'];
+      isThereAnError = false;
       emit(GetSportsSuccess());
     }).catchError((error) {
       if (kDebugMode) {
         print(error.toString());
       }
+      isThereAnError = true;
       emit(GetSportsError());
     });
   }
 
   List<dynamic> tech = [];
 
-  void getTechData() {
+  Future<void> getTechData() async {
     emit(GetTechLeading());
     DioHelper.getData(query: {
       'country': 'eg',
@@ -152,30 +164,35 @@ class NewsCubit extends Cubit<NewsState> {
       'apiKey': '3c7b9e365afd4cd398cdcd2461187440'
     }).then((value) {
       tech = value?.data['articles'];
+      isThereAnError = false;
       emit(GetTechSuccess());
     }).catchError((error) {
       if (kDebugMode) {
         print(error.toString());
       }
+      isThereAnError = true;
       emit(GetTechError());
     });
   }
 
   List<dynamic> search = [];
 
-  void getSearchData({required String qSearch}) {
+  Future<void> getSearchData({required String qSearch}) async {
     emit(GetSearchLeading());
     DioHelper.getData(
-            query: {'q': qSearch, 'apiKey': '3c7b9e365afd4cd398cdcd2461187440'},
-            url: 'v2/everything')
+        query: {'q': qSearch, 'apiKey': '3c7b9e365afd4cd398cdcd2461187440'},
+        url: 'v2/everything')
         .then((value) {
       search = value?.data['articles'];
+      isThereAnError = false;
       emit(GetSearchSuccess());
     }).catchError((error) {
       if (kDebugMode) {
         print(error.toString());
       }
+      isThereAnError = true;
       emit(GetSearchError());
     });
   }
+
 }

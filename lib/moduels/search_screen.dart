@@ -2,23 +2,26 @@ import 'package:animation_search_bar/animation_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../components/components.dart';
+import '../components/constants.dart';
 import '../shared/news_bloc/cubit.dart';
 import '../shared/news_bloc/states.dart';
 import '../style/color.dart';
 
 class SearchScreen extends StatelessWidget {
-  const SearchScreen({Key? key}) : super(key: key);
+  final TextEditingController controller = TextEditingController();
+   SearchScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController controller = TextEditingController();
+    checkInternetConnectivity();
     return BlocConsumer<NewsCubit, NewsState>(
       listener: (context, state) {},
       builder: (context, state) {
-        List list = NewsCubit.get(context).search;
+        List list =NewsCubit.get(context).search;
         return Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: PreferredSize(
-              preferredSize: const Size(double.infinity, 65),
+              preferredSize: const Size(double.infinity, 55),
               child: SafeArea(
                   child: Container(
                 decoration:
@@ -27,27 +30,27 @@ class SearchScreen extends StatelessWidget {
                       color: Colors.black26,
                       blurRadius: 5,
                       spreadRadius: 0,
-                      offset: Offset(0, 5))
-                ]),
+                      offset: Offset(0, 5),
+                  )
+                ],
+                    ),
                 alignment: Alignment.center,
                 child: AnimationSearchBar(
                   ///! Required
                   onChanged: (value) {
-                    debugPrint(value);
-                    NewsCubit.get(context).getSearchData(qSearch: value);
+                    if(isConnect) {
+                     NewsCubit.get(context).getSearchData(qSearch: value);
+                    }else{
+                      offlineMessage(context);
+                    }
+
                   },
                   searchTextEditingController: controller,
-
-                  ///! Optional. For more customization
-                  //? Back Button
                   backIcon: Icons.arrow_back_ios_new,
                   backIconColor: Colors.white,
                   isBackButtonVisible: true,
                   previousScreen: null,
-                  // It will push and replace this screen when pressing the back button
-                  //? Close Button
                   closeIconColor: Colors.white,
-                  //? Center Title
                   centerTitle: 'App Title',
                   hintText: 'Search here to get the news...',
                   centerTitleStyle: const TextStyle(
@@ -82,8 +85,45 @@ class SearchScreen extends StatelessWidget {
                           color: Colors.black.withOpacity(.2), width: .5),
                       borderRadius: BorderRadius.circular(15)),
                 ),
-              ))),
-          body: newsArticle(list),
+              ),
+              ),
+          ),
+          body: Visibility(
+            visible: isConnect,
+            replacement: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                if(state is GetAllDataLeading)
+                  defLinearProgressIndicator(),
+                errorItem(
+                  image: 'assets/images/offline.png',
+                  context: context,
+                  onTap: () {
+                    checkInternetConnectivity();
+                  },
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                if(state is GetSearchLeading)
+                  defLinearProgressIndicator(),
+                if(!NewsCubit.get(context).isThereAnError)
+                  Expanded(
+                  child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      itemBuilder: (context, index) => newsItem(list[index], context),
+                      itemCount: list.length),
+                ),
+                if(NewsCubit.get(context).isThereAnError)
+                errorItem(
+                  image: 'assets/images/Error 404.png',
+                  context: context,
+                  onTap: () {},
+                ),
+              ],
+            ),
+          ),
         );
       },
     );

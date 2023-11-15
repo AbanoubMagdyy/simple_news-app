@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:simple_news_app/components/constants.dart';
 import 'package:simple_news_app/shared/bolc_observer.dart';
 import 'package:simple_news_app/shared/news_bloc/cubit.dart';
 import 'package:simple_news_app/shared/news_bloc/states.dart';
@@ -13,6 +14,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
  await SharedHelper.init();
+ await checkInternetConnectivity();
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
   bool dark = SharedHelper.getAllData(key: 'isDark') ?? true;
@@ -28,14 +30,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => NewsCubit()
-        ..changeThemeMode(shared: dark)
-        ..getAllData()
-        ..getBusinessData()
-        ..getEntertainmentData()
-        ..getHealthData()
-        ..getScienceData()
-        ..getSportsData()
-        ..getTechData(),
+        ..changeThemeMode(shared: dark),
+
       child: BlocConsumer<NewsCubit, NewsState>(
         listener: (context, state) {},
         builder: (context, state) {

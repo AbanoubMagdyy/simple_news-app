@@ -8,39 +8,51 @@ ThemeData darkTheme = ThemeData(
       color: defaultColor,
       fontWeight: FontWeight.bold,
     ),
+    bodyLarge: const TextStyle(
+      color: Colors.black,
+      fontWeight: FontWeight.bold,
+    ),
   ),
   scaffoldBackgroundColor: Colors.black,
 primaryColor: Colors.black,
-  appBarTheme: const AppBarTheme(
+  primarySwatch: Colors.lightGreen,
+  appBarTheme:  AppBarTheme(
       color: Colors.black,
       elevation: 0,
-      titleTextStyle: TextStyle(
+      titleTextStyle: const TextStyle(
           color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
       iconTheme: IconThemeData(
-        color: Colors.white,
+        color: defaultColor,
       ),
-      systemOverlayStyle: SystemUiOverlayStyle(
+      systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarColor: Colors.black,
           statusBarIconBrightness: Brightness.light)),
 );
 
 ThemeData lightTheme = ThemeData(
   scaffoldBackgroundColor: Colors.white,
-  appBarTheme: const AppBarTheme(
+  appBarTheme:  AppBarTheme(
       color: Colors.white,
       elevation: 0,
-      titleTextStyle: TextStyle(
+      titleTextStyle: const TextStyle(
           color: Colors.black54, fontSize: 25, fontWeight: FontWeight.bold),
       iconTheme: IconThemeData(
-        color: Colors.black,
+        color: defaultColor,
       ),
-      systemOverlayStyle: SystemUiOverlayStyle(
+      systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarColor: Colors.white,
-          statusBarIconBrightness: Brightness.dark)),
+          statusBarIconBrightness: Brightness.dark,
+      ),
+  ),
   primaryColor: Colors.white,
+  primarySwatch: Colors.lightGreen,
   textTheme:  TextTheme(
     bodyMedium: TextStyle(
       color: defaultColor,
+      fontWeight: FontWeight.bold,
+    ),
+    bodyLarge: const TextStyle(
+      color: Colors.white,
       fontWeight: FontWeight.bold,
     ),
   ),

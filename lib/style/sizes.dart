@@ -1,0 +1,1 @@
+const double sizeOfPaddingAllScreen = 15 ;
